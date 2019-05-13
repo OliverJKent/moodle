@@ -1609,6 +1609,10 @@ class restore_section_structure_step extends restore_structure_step {
 
             // Don't update availability (I didn't see a useful way to define
             // whether existing or new one should take precedence).
+            
+            //SSU_AMEND START Remove styling from the HTML during course imports
+            $data->intro = preg_replace('/(<[^>]*) style=("[^"]+"|\'[^\']+\')([^>]*>)/i', '$1$3', $data->intro);
+            //SSU_AMEND END
 
             $DB->update_record('course_sections', $section);
             $newitemid = $secrec->id;
