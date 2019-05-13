@@ -1611,7 +1611,8 @@ class restore_section_structure_step extends restore_structure_step {
             // whether existing or new one should take precedence).
             
             //SSU_AMEND START Remove styling from the HTML during course imports
-            $data->intro = preg_replace('/(<[^>]*) style=("[^"]+"|\'[^\']+\')([^>]*>)/i', '$1$3', $data->intro);
+            $section->summary = strip_tags($data->intro, '<p><br><ul><ol><li>'); //Remove all HTML tags execpt those specified
+            $section->summary = preg_replace('/(<[^>]*) style=("[^"]+"|\'[^\']+\')([^>]*>)/i', '$1$3', $section->summary); //Remove extra styling
             //SSU_AMEND END
 
             $DB->update_record('course_sections', $section);
