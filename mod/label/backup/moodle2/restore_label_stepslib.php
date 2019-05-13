@@ -51,8 +51,8 @@ class restore_label_activity_structure_step extends restore_activity_structure_s
         // See MDL-9367.
         
         //SSU_AMEND START Remove styling from the HTML during course imports
-        $section->summary = strip_tags($data->intro, '<p><br><ul><ol><li>'); //Remove all HTML tags execpt those specified
-        $section->summary = preg_replace('/(<[^>]*) style=("[^"]+"|\'[^\']+\')([^>]*>)/i', '$1$3', $section->summary); //Remove extra styling
+        $data->intro = strip_tags($data->intro, '<p><br><ul><ol><li>'); //Remove all HTML tags execpt those specified
+        $data->intro = preg_replace('/(<[^>]*) style=("[^"]+"|\'[^\']+\')([^>]*>)/i', '$1$3', $data->intro); //Remove extra styling
         //SSU_AMEND END
 
         // insert the label record
