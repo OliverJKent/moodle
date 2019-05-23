@@ -1610,10 +1610,10 @@ class restore_section_structure_step extends restore_structure_step {
             // Don't update availability (I didn't see a useful way to define
             // whether existing or new one should take precedence).
             
-            //SSU_AMEND START Remove styling from the HTML during course imports
+//SSU_AMEND START Remove styling from the HTML during course imports
             $section->summary = strip_tags($data->intro, '<p><br><ul><ol><li>'); //Remove all HTML tags execpt those specified
             $section->summary = preg_replace('/(<[^>]*) style=("[^"]+"|\'[^\']+\')([^>]*>)/i', '$1$3', $section->summary); //Remove extra styling
-            //SSU_AMEND END
+//SSU_AMEND END
 
             $DB->update_record('course_sections', $section);
             $newitemid = $secrec->id;
@@ -1753,6 +1753,13 @@ class restore_section_structure_step extends restore_structure_step {
                 $newid = $record->id;
             } else {
                 $params['value'] = $data['value'];
+                
+//SSU_AMEND START Strip styling from Onetopic tabs when importing
+                if ($params['name'] === 'bgcolor' || $params['name'] === 'fontcolor' || $params['name'] === 'cssstyles') {
+                    $params['value'] = '';
+                }
+//SSU_AMEND END
+                
                 $newid = $DB->insert_record('course_format_options', $params);
             }
             $this->set_mapping('course_format_options', $data['id'], $newid);
